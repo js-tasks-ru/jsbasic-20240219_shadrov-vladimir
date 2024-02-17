@@ -10,4 +10,3 @@ function factorial(n) {
 
   return res;
 }
-п;
