@@ -66,13 +66,14 @@ export default class UserTable {
   }
 
   tableBodyClickHandler = (event) => {
-    const rowForDeleteIndex = event.target.closest("tr").dataset.name;
+    const buttonElement = event.target.closest('[data-delete="true"]');
 
-    if (!rowForDeleteIndex) {
+    if (!buttonElement) {
       return;
     }
 
-    this.rows = this.rows.filter(({ name }) => name !== rowForDeleteIndex);
+    const rowForDeleteName = event.target.closest("tr").dataset.name;
+    this.rows = this.rows.filter(({ name }) => name !== rowForDeleteName);
     this.tableBody.innerHTML = this.createTableBody();
   };
 }
