@@ -16,7 +16,6 @@ export default class UserTable {
   constructor(rows) {
     this.rows = rows;
     this.elem = this.createElem(this.createElemTemplate());
-    this.tableBody = this.elem.querySelector('[data-id="my-table"]');
     this.createEventListeners();
   }
   createElem(template) {
@@ -45,9 +44,7 @@ export default class UserTable {
   }
   createTableBody() {
     return this.rows
-      .map(
-        (row) => `<tr data-name="${row.name}">${this.createTableRow(row)}</tr>`
-      )
+      .map((row) => `<tr>${this.createTableRow(row)}</tr>`)
       .join("");
   }
 
@@ -56,24 +53,22 @@ export default class UserTable {
       .map((dataItem) => `<td>${dataItem}</td>`)
       .join("");
 
-    rowTemplate += '<td><button data-delete="true">X</button></td>';
+    rowTemplate += "<td><button>X</button></td>";
 
     return rowTemplate;
   }
 
   createEventListeners() {
-    this.elem.addEventListener("click", this.tableBodyClickHandler);
+    const buttonElements = this.elem.querySelectorAll("button");
+
+    for (const button of buttonElements) {
+      button.addEventListener("click", this.deleteBtnClickHandler);
+    }
   }
 
-  tableBodyClickHandler = (event) => {
-    const buttonElement = event.target.closest('[data-delete="true"]');
-
-    if (!buttonElement) {
-      return;
-    }
-
-    const rowForDeleteName = event.target.closest("tr").dataset.name;
-    this.rows = this.rows.filter(({ name }) => name !== rowForDeleteName);
-    this.tableBody.innerHTML = this.createTableBody();
+  deleteBtnClickHandler = (event) => {
+    const buttonElement = event.target.closest("button");
+    buttonElement.removeEventListener("click", this.deleteBtnClickHandler);
+    buttonElement.closest("tr").remove();
   };
 }
