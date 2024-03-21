@@ -109,7 +109,10 @@ export default class StepSlider {
     if (left > this.elem.offsetWidth) {
       left = this.elem.offsetWidth;
     }
-    this.value = Math.round(left / this.elem.offsetWidth * this.clusters);
+
+    if (this.elem.offsetWidth) {
+      this.value = Math.round(left / this.elem.offsetWidth * this.clusters);
+    }
   }
 
   updateView() {
