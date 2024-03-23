@@ -41,7 +41,7 @@ export default class CartIcon {
   updatePosition() {
     const isElemVisible = this.elem.className.includes('cart-icon_visible');
 
-    if (!isElemVisible || window.innerWidth < 767) {
+    if (!isElemVisible || document.documentElement.clientWidth < 767) {
       return;
     }
 
