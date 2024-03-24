@@ -2,8 +2,9 @@ import createElement from '../../assets/lib/create-element.js';
 
 export default class CartIcon {
   constructor() {
-    this.render();
+    this.rootContainer = document.querySelector('.header.container');
 
+    this.render();
     this.addEventListeners();
   }
 
@@ -26,8 +27,7 @@ export default class CartIcon {
       this.elem.classList.add('shake');
       this.elem.addEventListener('transitionend', () => {
         this.elem.classList.remove('shake');
-      }, {once: true});
-
+      }, { once: true });
     } else {
       this.elem.classList.remove('cart-icon_visible');
     }
@@ -39,6 +39,27 @@ export default class CartIcon {
   }
 
   updatePosition() {
-    // ваш код ...
+    const isElemVisible = this.elem.className.includes('cart-icon_visible');
+
+    if (!isElemVisible || document.documentElement.clientWidth < 767) {
+      return;
+    }
+
+    const { right } = this.rootContainer.getBoundingClientRect();
+    const topOffset = 50;
+    const rightContainerOffset = 20;
+    const hasFreePlaceForIcon = document.documentElement.clientWidth > right + rightContainerOffset + this.elem.offsetWidth + 10;
+    const leftOffset = right + rightContainerOffset;
+    const resizeLeftOffset = document.documentElement.clientWidth - 10 - this.elem.offsetWidth;
+
+    if (window.scrollY > topOffset) {
+      this.elem.style.position = 'fixed';
+      this.elem.style.left = `${hasFreePlaceForIcon ? leftOffset : resizeLeftOffset}px`;
+      this.elem.style.top = '50px';
+    } else {
+      this.elem.style.position = 'absolute';
+      this.elem.style.left = 'auto';
+      this.elem.style.top = '50px';
+    }
   }
 }
