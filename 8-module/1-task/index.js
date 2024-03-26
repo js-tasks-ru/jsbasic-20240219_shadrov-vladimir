@@ -56,10 +56,10 @@ export default class CartIcon {
       this.elem.style.position = 'fixed';
       this.elem.style.left = `${hasFreePlaceForIcon ? leftOffset : resizeLeftOffset}px`;
       this.elem.style.top = '50px';
+      this.elem.style.zIndex = '1000';
     } else {
-      this.elem.style.position = 'absolute';
-      this.elem.style.left = 'auto';
-      this.elem.style.top = '50px';
+      this.elem.removeAttribute("style");
+
     }
   }
 }
