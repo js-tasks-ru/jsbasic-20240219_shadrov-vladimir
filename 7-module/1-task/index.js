@@ -51,6 +51,7 @@ export default class RibbonMenu {
   }
 
   menuClickHandler = (event) => {
+    event.preventDefault();
     const menuItem = event.target.closest('.ribbon__item');
 
     if (!menuItem) {

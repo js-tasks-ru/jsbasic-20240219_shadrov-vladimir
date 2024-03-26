@@ -56,7 +56,7 @@ export default class CartIcon {
       this.elem.style.position = 'fixed';
       this.elem.style.left = `${hasFreePlaceForIcon ? leftOffset : resizeLeftOffset}px`;
       this.elem.style.top = '50px';
-      this.elem.style.zIndex = '1000';
+      this.elem.style.zIndex = '900';
     } else {
       this.elem.removeAttribute("style");
 
